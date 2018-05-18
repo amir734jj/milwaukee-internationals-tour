@@ -1,0 +1,20 @@
+<!-- Generated template for the DirectionComponent component -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{direction.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()">
+        <ion-icon item-right name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4>
+    {{direction.address}}
+  </h4>
+  <p>
+    {{direction.description}}
+  </p>
+</ion-content>
