@@ -1,0 +1,8 @@
+{
+  "name": "milwaukee-internationals-tour",
+  "app_id": "df8502f9",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
