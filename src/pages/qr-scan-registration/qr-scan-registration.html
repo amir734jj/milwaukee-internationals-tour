@@ -15,7 +15,7 @@
 
 <ion-content padding>
   <button ion-button (click)="startScan()" *ngIf="!scanning">Start scan</button>
-  <button ion-button (click)="stopScan()" *ngIf="scanning">Start scan</button>
+  <button ion-button (click)="stopScan()" *ngIf="scanning">Stop scan</button>
 
   <ion-card>
   {{scanResult}}
