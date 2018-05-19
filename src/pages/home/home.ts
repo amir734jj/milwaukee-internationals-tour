@@ -1,5 +1,5 @@
 import {Component, Injectable} from '@angular/core';
-import {AlertController, ModalController, NavController} from 'ionic-angular';
+import {ModalController, NavController} from 'ionic-angular';
 import { HttpClient } from "@angular/common/http";
 import { Direction } from "../../models/direction";
 import {DirectionComponent} from "../../components/direction/direction";
@@ -13,15 +13,12 @@ export class HomePage {
 
   directions: Array<Direction>;
 
-  constructor(public navCtrl: NavController, private http: HttpClient, private alert: AlertController, private modal: ModalController) {
+  constructor(public navCtrl: NavController, private http: HttpClient, private modal: ModalController) {
     this.directions = [];
     this.http.get('http://127.0.0.1:3000/directions').subscribe(x => {
-      this.directions = x as Array<Direction>;
-      // alert.create({
-      //   title: 'Example',
-      //   subTitle: 'Example subtitle',
-      //   buttons: ['OK']
-      // }).present().then(x => x);
+      if (x instanceof Array) {
+        this.directions = x as Array<Direction>;
+      }
     });
   }
 

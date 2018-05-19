@@ -16,7 +16,7 @@ import {NavController, NavParams} from "ionic-angular";
 export class DirectionComponent {
 
   direction: Direction;
-  private params: NavParams;
+  private readonly params: NavParams;
 
   constructor(params: NavParams, public navCtrl: NavController) {
     this.direction = params.get("direction");
@@ -25,5 +25,6 @@ export class DirectionComponent {
 
   closeModal() {
     this.navCtrl.pop();
+    console.log(this.params);
   }
 }

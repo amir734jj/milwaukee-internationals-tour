@@ -11,7 +11,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {ComponentsModule} from '../components/components.module';
+import { ComponentsModule } from '../components/components.module';
+import { QrScanRegistrationPage } from "../pages/qr-scan-registration/qr-scan-registration";
+import {QRScanner} from "@ionic-native/qr-scanner";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {ComponentsModule} from '../components/components.module';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    QrScanRegistrationPage
   ],
   imports: [
     BrowserModule,
@@ -33,12 +36,14 @@ import {ComponentsModule} from '../components/components.module';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    QrScanRegistrationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    QRScanner
   ]
 })
 export class AppModule {}
