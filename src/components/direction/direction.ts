@@ -27,4 +27,5 @@ export class DirectionComponent {
     this.navCtrl.pop();
     console.log(this.params);
   }
+
 }
