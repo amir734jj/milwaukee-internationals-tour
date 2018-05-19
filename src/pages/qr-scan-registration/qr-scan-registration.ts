@@ -19,6 +19,8 @@ export class QrScanRegistrationPage {
 
   public scanResult: QrResult;
 
+  public scanning: Boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public alertCtrl: AlertController) {
   }
 
@@ -31,9 +33,8 @@ export class QrScanRegistrationPage {
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
           // camera permission was granted
-
-          this.qrScanner.resumePreview();
-          this.qrScanner.show();
+          this.scanning = true;
+          this.qrScanner.useBackCamera();
 
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
@@ -41,12 +42,8 @@ export class QrScanRegistrationPage {
 
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
+            this.scanning = false;
           });
-
-          window.document.querySelector('ion-app').classList.add('transparentBody');
-
-          this.qrScanner.resumePreview();
-          this.qrScanner.show();
 
         } else if (status.denied) {
           this.alertCtrl.create({
@@ -63,5 +60,9 @@ export class QrScanRegistrationPage {
         }
       })
       .catch((e: any) => console.log('Error is', e));
+  }
+
+  stopScan() {
+    this.qrScanner.hide().then(_ => this.qrScanner.destroy());
   }
 }
