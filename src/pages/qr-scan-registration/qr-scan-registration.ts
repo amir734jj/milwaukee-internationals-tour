@@ -1,6 +1,7 @@
 import {Component, Injectable} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, NavController, NavParams} from 'ionic-angular';
 import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
+import {QrResult} from "../../models/qr-result";
 
 /**
  * Generated class for the QrScanRegistrationPage page.
@@ -16,7 +17,9 @@ import {QRScanner, QRScannerStatus} from "@ionic-native/qr-scanner";
 })
 export class QrScanRegistrationPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner) {
+  public scanResult: QrResult;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public qrScanner: QRScanner, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -29,15 +32,29 @@ export class QrScanRegistrationPage {
         if (status.authorized) {
           // camera permission was granted
 
+          this.qrScanner.resumePreview();
+          this.qrScanner.show();
+
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            console.log('Scanned something', text);
+            this.scanResult = text["result"] as QrResult;
 
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
           });
 
+          window.document.querySelector('ion-app').classList.add('transparentBody');
+
+          this.qrScanner.resumePreview();
+          this.qrScanner.show();
+
         } else if (status.denied) {
+          this.alertCtrl.create({
+            title: 'Access defined',
+            subTitle: 'Access to camera denied!',
+            buttons: ['OK']
+          }).present().then(x => x);
+
           // camera permission was permanently denied
           // you must use QRScanner.openSettings() method to guide the user to the settings page
           // then they can grant the permission from there
